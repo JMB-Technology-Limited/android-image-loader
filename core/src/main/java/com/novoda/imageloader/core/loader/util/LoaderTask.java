@@ -32,7 +32,7 @@ import java.lang.ref.WeakReference;
 public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
 
     private final LoaderSettings loaderSettings;
-    private final WeakReference<OnImageLoadedListener> onImageLoadedListener;
+    private final OnImageLoadedListener onImageLoadedListener;
     private String url;
     private boolean saveScaledImage;
     private boolean useCacheOnly;
@@ -49,7 +49,7 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
         this(imageWrapper, loaderSettings, null);
     }
 
-    public LoaderTask(ImageWrapper imageWrapper, LoaderSettings loaderSettings, WeakReference<OnImageLoadedListener> onImageLoadedListener) {
+    public LoaderTask(ImageWrapper imageWrapper, LoaderSettings loaderSettings, OnImageLoadedListener onImageLoadedListener) {
         this.loaderSettings = loaderSettings;
         this.onImageLoadedListener = onImageLoadedListener;
         if (imageWrapper != null) {
@@ -134,8 +134,8 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     private void listenerCallback() {
-        if (onImageLoadedListener != null && onImageLoadedListener.get() != null) {
-            onImageLoadedListener.get().onImageLoaded(imageView);
+        if (onImageLoadedListener != null) {
+            onImageLoadedListener.onImageLoaded(imageView);
         }
     }
 

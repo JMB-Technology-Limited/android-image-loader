@@ -85,7 +85,7 @@ public class ImageManager {
     }
 
     public void setOnImageLoadedListener(OnImageLoadedListener listener) {
-        loaderSettings.getLoader().setLoadListener(new WeakReference<OnImageLoadedListener>(listener));
+        loaderSettings.getLoader().setLoadListener(listener);
     }
 
     /**

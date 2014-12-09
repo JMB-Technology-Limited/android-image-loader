@@ -35,6 +35,6 @@ public interface Loader {
      */
     void load(ImageView imageView);
 
-    void setLoadListener(WeakReference<OnImageLoadedListener> onImageLoadedListener);
+    void setLoadListener(OnImageLoadedListener onImageLoadedListener);
 
 }

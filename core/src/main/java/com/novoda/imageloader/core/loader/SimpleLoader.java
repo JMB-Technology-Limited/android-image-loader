@@ -33,7 +33,7 @@ public class SimpleLoader implements Loader {
 
     private LoaderSettings loaderSettings;
     private SingleThreadedLoader singleThreadedLoader;
-    private WeakReference<OnImageLoadedListener> onImageLoadedListener;
+    private OnImageLoadedListener onImageLoadedListener;
 
     public SimpleLoader(LoaderSettings loaderSettings) {
         this.loaderSettings = loaderSettings;
@@ -54,7 +54,7 @@ public class SimpleLoader implements Loader {
 
     private void onImageLoaded(ImageView imageView) {
         if (onImageLoadedListener != null) {
-            onImageLoadedListener.get().onImageLoaded(imageView);
+            onImageLoadedListener.onImageLoaded(imageView);
         }
     }
 
@@ -91,7 +91,7 @@ public class SimpleLoader implements Loader {
     }
 
     @Override
-    public void setLoadListener(WeakReference<OnImageLoadedListener> onImageLoadedListener) {
+    public void setLoadListener(OnImageLoadedListener onImageLoadedListener) {
         this.onImageLoadedListener = onImageLoadedListener;
     }
 

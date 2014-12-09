@@ -30,7 +30,7 @@ import java.lang.ref.WeakReference;
 public class ConcurrentLoader implements Loader {
 
     private final LoaderSettings loaderSettings;
-    private WeakReference<OnImageLoadedListener> onImageLoadedListener;
+    private OnImageLoadedListener onImageLoadedListener;
 
     public ConcurrentLoader(LoaderSettings loaderSettings) {
         this.loaderSettings = loaderSettings;
@@ -116,7 +116,7 @@ public class ConcurrentLoader implements Loader {
     }
 
     @Override
-    public void setLoadListener(WeakReference<OnImageLoadedListener> onImageLoadedListener) {
+    public void setLoadListener(OnImageLoadedListener onImageLoadedListener) {
         this.onImageLoadedListener = onImageLoadedListener;
     }
 
