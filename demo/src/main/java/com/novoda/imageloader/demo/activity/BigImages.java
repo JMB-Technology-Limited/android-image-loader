@@ -54,7 +54,7 @@ public class BigImages extends ImageLoaderBaseActivity implements OnImageLoadedL
     @Override
     protected void onPause() {
         super.onPause();
-        imageManager.unRegisterOnImageLoadedListener(this);
+        imageManager.setOnImageLoadedListener(null);
     }
 
     @Override

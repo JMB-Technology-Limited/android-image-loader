@@ -44,7 +44,6 @@ import java.util.Map;
 public class ImageManager {
 
     private final LoaderSettings loaderSettings;
-    private final Map<Integer, WeakReference<OnImageLoadedListener>> onImageLoadedListeners;
 
     public ImageManager(LoaderSettings settings) {
         this(null, settings);
@@ -55,7 +54,6 @@ public class ImageManager {
             verifyPermissions(context);
         }
         this.loaderSettings = settings;
-        onImageLoadedListeners = new HashMap<Integer, WeakReference<OnImageLoadedListener>>();
     }
 
     private void verifyPermissions(Context context) {
@@ -87,12 +85,7 @@ public class ImageManager {
     }
 
     public void setOnImageLoadedListener(OnImageLoadedListener listener) {
-        onImageLoadedListeners.put(listener.hashCode(), new WeakReference<OnImageLoadedListener>(listener));
-        loaderSettings.getLoader().setLoadListener(onImageLoadedListeners.get(listener.hashCode()));
-    }
-
-    public void unRegisterOnImageLoadedListener(OnImageLoadedListener listener) {
-        onImageLoadedListeners.remove(listener.hashCode());
+        loaderSettings.getLoader().setLoadListener(new WeakReference<OnImageLoadedListener>(listener));
     }
 
     /**
