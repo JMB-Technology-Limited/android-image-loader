@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.novoda.imageloader.core.ImageFilterOnDisplay;
 import com.novoda.imageloader.core.LoaderSettings;
 import com.novoda.imageloader.core.OnImageLoadedListener;
 import com.novoda.imageloader.core.model.ImageTag;
@@ -42,6 +43,7 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
     private Context context;
     private File imageFile;
     private Animation animation;
+    private ImageFilterOnDisplay imageFilterOnDisplay;
 
     public LoaderTask(ImageWrapper imageWrapper, LoaderSettings loaderSettings) {
         this(imageWrapper, loaderSettings, null);
@@ -62,7 +64,11 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
         }
 
         BitmapRetriever imageRetriever = new BitmapRetriever(url, imageFile, width, height, notFoundResourceId, useCacheOnly, saveScaledImage, imageView, loaderSettings, context);
-        return imageRetriever.getBitmap();
+        Bitmap bitmap = imageRetriever.getBitmap();
+        if (imageFilterOnDisplay != null) {
+            bitmap = imageFilterOnDisplay.applyFilter(context, bitmap);
+        }
+        return bitmap;
     }
 
 
@@ -76,6 +82,7 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
         context = imageWrapper.getContext();
         imageFile = getImageFile(imageWrapper);
         animation = imageView.getAnimation();
+        imageFilterOnDisplay = imageWrapper.getImageFilterOnDisplay();
     }
 
     private File getImageFile(ImageWrapper imageWrapper) {

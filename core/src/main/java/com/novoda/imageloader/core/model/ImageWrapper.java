@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.novoda.imageloader.core.ImageFilterOnDisplay;
 import com.novoda.imageloader.core.loader.util.BitmapDisplayer;
 
 public class ImageWrapper {
@@ -40,6 +41,7 @@ public class ImageWrapper {
     private boolean isUseCacheOnly;
     private boolean saveThumbnail;
     private Animation animation;
+    private ImageFilterOnDisplay imageFilterOnDisplay;
 
     public ImageWrapper(ImageView imageView) {
         this.imageView = imageView;
@@ -65,6 +67,7 @@ public class ImageWrapper {
         }
         this.previewUrl = tag.getPreviewUrl();
         this.animation = tag.getAnimation();
+        this.imageFilterOnDisplay = tag.getImageFilterOnDisplay();
     }
 
     public String getCurrentUrl() {
@@ -102,6 +105,18 @@ public class ImageWrapper {
     }
 
     public void setBitmap(Bitmap bitmap, boolean animated) {
+        imageView.setImageBitmap(bitmap);
+
+        stopExistingAnimation();
+        if (animation != null && animated) {
+            imageView.startAnimation(animation);
+        }
+    }
+
+    public void setBitmapWithFilter(Bitmap bitmap, boolean animated) {
+        if (imageFilterOnDisplay != null) {
+            bitmap = imageFilterOnDisplay.applyFilter(imageView.getContext(), bitmap);
+        }
         imageView.setImageBitmap(bitmap);
 
         stopExistingAnimation();
@@ -161,4 +176,8 @@ public class ImageWrapper {
         return previewHeight;
     }
 
+
+	public ImageFilterOnDisplay getImageFilterOnDisplay() {
+		return imageFilterOnDisplay;
+	}
 }

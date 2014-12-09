@@ -52,7 +52,7 @@ public class ConcurrentLoader implements Loader {
     private synchronized void loadBitmap(ImageWrapper w) {
         if (isBitmapAlreadyInCache(getCachedBitmap(w))) {
             Bitmap cachedBitmap = getCachedBitmap(w);
-            w.setBitmap(cachedBitmap, false);
+            w.setBitmapWithFilter(cachedBitmap, false);
             return;
         }
         setDefaultImage(w);
