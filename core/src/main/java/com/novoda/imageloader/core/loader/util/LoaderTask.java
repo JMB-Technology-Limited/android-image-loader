@@ -117,7 +117,7 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
             return;
         }
         if (!hasImageViewUrlChanged()) {
-            listenerCallback();
+            listenerCallback(bitmap);
             imageView.setImageBitmap(bitmap);
             stopExistingAnimation();
             if (animation != null) {
@@ -133,9 +133,9 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
         }
     }
 
-    private void listenerCallback() {
+    private void listenerCallback(Bitmap bitmap) {
         if (onImageLoadedListener != null) {
-            onImageLoadedListener.onImageLoaded(imageView);
+            onImageLoadedListener.onImageLoaded(imageView, bitmap);
         }
     }
 

@@ -47,14 +47,14 @@ public class SimpleLoader implements Loader {
             protected void onBitmapLoaded(ImageWrapper iw, Bitmap bmp) {
                 new BitmapDisplayer(bmp, iw).runOnUiThread();
                 SimpleLoader.this.loaderSettings.getCacheManager().put(iw.getUrl(), bmp);
-                onImageLoaded(iw.getImageView());
+                onImageLoaded(iw.getImageView(), bmp);
             }
         };
     }
 
-    private void onImageLoaded(ImageView imageView) {
+    private void onImageLoaded(ImageView imageView, Bitmap bitmap) {
         if (onImageLoadedListener != null) {
-            onImageLoadedListener.onImageLoaded(imageView);
+            onImageLoadedListener.onImageLoaded(imageView, bitmap);
         }
     }
 
