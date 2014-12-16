@@ -45,9 +45,9 @@ public class SimpleLoader implements Loader {
 
             @Override
             protected void onBitmapLoaded(ImageWrapper iw, Bitmap bmp) {
+                onImageLoaded(iw.getImageView(), bmp);
                 new BitmapDisplayer(bmp, iw).runOnUiThread();
                 SimpleLoader.this.loaderSettings.getCacheManager().put(iw.getUrl(), bmp);
-                onImageLoaded(iw.getImageView(), bmp);
             }
         };
     }
